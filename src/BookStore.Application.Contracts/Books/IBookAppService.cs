@@ -1,0 +1,19 @@
+﻿using Volo.Abp.Application.Services;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Volo.Abp.Application.Dtos;
+
+namespace BookStore.Books
+{
+    public interface IBookAppService :
+        ICrudAppService<
+            BookDto,
+            Guid,
+            PagedAndSortedResultRequestDto,
+            CreateUpdateBookDto
+            >
+    {
+         
+    }
+}
