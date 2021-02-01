@@ -31,37 +31,35 @@ namespace BookStore.Blazor.Menus
             }
         }
 
-        private async Task<Task> ConfigureMainMenuAsync(MenuConfigurationContext context)
+        private async Task ConfigureMainMenuAsync(MenuConfigurationContext context)
         {
             var l = context.GetLocalizer<BookStoreResource>();
 
             context.Menu.Items.Insert(
                 0,
                 new ApplicationMenuItem(
-                    BookStoreMenus.Home,
+                    "BookStore.Home",
                     l["Menu:Home"],
                     "/",
                     icon: "fas fa-home"
                 )
             );
 
-            var bookStoreMenu = new ApplicationMenuItem
-                (
-                   "BooksStore",
-                    l["Menu:BookStore"],
-                    icon: "fa fa-book"
-                );
+            var bookStoreMenu = new ApplicationMenuItem(
+                "BooksStore",
+                l["Menu:BookStore"],
+                icon: "fa fa-book"
+            );
 
             context.Menu.AddItem(bookStoreMenu);
-             
+
             if (await context.IsGrantedAsync(BookStorePermissions.Books.Default))
             {
-                bookStoreMenu.AddItem(
-                    new ApplicationMenuItem(
-                        "BooksStore.Books",
-                        l["Menu:Books"],
-                        url: "/books"
-                    ));
+                bookStoreMenu.AddItem(new ApplicationMenuItem(
+                    "BooksStore.Books",
+                    l["Menu:Books"],
+                    url: "/books"
+                ));
             }
 
             if (await context.IsGrantedAsync(BookStorePermissions.Authors.Default))
@@ -72,8 +70,6 @@ namespace BookStore.Blazor.Menus
                     url: "/authors"
                 ));
             }
-
-            return Task.CompletedTask;
         }
 
         private Task ConfigureUserMenuAsync(MenuConfigurationContext context)
