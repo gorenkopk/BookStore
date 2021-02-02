@@ -6,7 +6,7 @@ namespace BookStore.Orders
     public class Order : FullAuditedAggregateRoot<Guid>
     {
         public Guid BookId { get; set; }
-        public Guid CustomerId { get; set; }
+        public Guid AppUserId { get; set; }
         public OrderStage Stage { get; set; }
         public float TotalPrice { get; set; }
     }
