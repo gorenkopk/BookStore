@@ -1,12 +1,12 @@
 ﻿using System;
-using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Application.Dtos;
 
 namespace BookStore.Orders
 {
-    public class Order : FullAuditedAggregateRoot<Guid>
+    public class OrderDto : AuditedEntityDto<Guid>
     {
         public Guid BookId { get; set; }
-        public Guid CustomerId { get; set; }
+        public Guid Customer { get; set; }
         public OrderStage Stage { get; set; }
         public float TotalPrice { get; set; }
     }

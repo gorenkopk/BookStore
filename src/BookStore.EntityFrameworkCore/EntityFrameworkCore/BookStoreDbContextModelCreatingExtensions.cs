@@ -1,5 +1,6 @@
 ﻿using BookStore.Authors;
 using BookStore.Books;
+using BookStore.Orders;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
@@ -26,6 +27,14 @@ namespace BookStore.EntityFrameworkCore
                 b.ConfigureByConvention();
                 b.Property(x => x.Name).IsRequired().HasMaxLength(AuthorConsts.MaxNameLength);
                 b.HasIndex(x => x.Name);
+            });
+
+            builder.Entity<Order>(b =>
+            {
+                b.ToTable(BookStoreConsts.DbTablePrefix + "Orders", BookStoreConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.HasOne<Book>().WithMany().HasForeignKey(x => x.BookId);
             });
 
         }
