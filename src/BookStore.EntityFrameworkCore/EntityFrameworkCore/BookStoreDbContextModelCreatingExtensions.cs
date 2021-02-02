@@ -1,6 +1,7 @@
 ﻿using BookStore.Authors;
 using BookStore.Books;
 using BookStore.Orders;
+using BookStore.Users;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
