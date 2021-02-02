@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using BookStore.Authors;
 using BookStore.Books;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Identity;
 
 namespace BookStore
 {
@@ -14,14 +17,22 @@ namespace BookStore
         private readonly IRepository<Book, Guid> _bookRepository;
         private readonly IAuthorRepository _authorRepository;
         private readonly AuthorManager _authorManager;
-
+        private readonly IIdentityUserRepository _identityUserRepository;
+        private readonly IIdentityRoleRepository _identityRoleRepository;
+        private readonly IdentityUserManager _identityUserManager;
         public BookStoreDataSeederContributor(IRepository<Book, Guid> bookRepository,
                                                 IAuthorRepository authorRepository,
-                                                AuthorManager authorManager)
+                                                AuthorManager authorManager,
+                                                IIdentityUserRepository identityUserRepository,
+                                                IdentityUserManager identityUserManager,
+                                                IIdentityRoleRepository identityRoleRepository)
         {
             _bookRepository = bookRepository;
             _authorRepository = authorRepository;
             _authorManager = authorManager;
+            _identityUserRepository = identityUserRepository;
+            _identityUserManager = identityUserManager;
+            _identityRoleRepository = identityRoleRepository;
         }
 
         public async Task SeedAsync(DataSeedContext context)
@@ -71,6 +82,48 @@ namespace BookStore
                     )
                 );
             }
+
+            // ADD NEW ROLE - CLIENT
+            if (await _identityRoleRepository.GetCountAsync() <= 1)
+            {
+                await _identityRoleRepository.InsertAsync
+                    (
+                        new IdentityRole(
+                                new Guid(),
+                                "Client"
+                            ),
+                        true
+                    );
+            }
+
+
+            // ADD NEW USER - CLIENT
+
+            if (await _identityUserRepository.GetCountAsync() <= 1)
+            {
+                   await _identityUserRepository.InsertAsync
+                    (
+                           new IdentityUser(
+                               new Guid(),"Client", "client@abp.io"
+                               ), 
+                           true
+                   );
+            }
+
+            // ADD CLIENTS ROLE AND PASSWORD
+
+            var client = await _identityUserManager.FindByNameAsync("Client");
+            if (client.Roles == null)
+            {
+                var roles = new List<string> { "Client" };
+                await _identityUserManager.SetRolesAsync(client, roles);
+            }
+
+            if (client.PasswordHash.IsNullOrEmpty())
+            {
+                await _identityUserManager.AddPasswordAsync(client, "1q2w3E*");
+            }
+            
         }
     }
 }
