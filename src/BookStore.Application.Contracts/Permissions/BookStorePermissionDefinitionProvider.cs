@@ -21,6 +21,10 @@ namespace BookStore.Permissions
             authorsPermission.AddChild(BookStorePermissions.Authors.Edit, L("Permission:Authors.Edit"));
             authorsPermission.AddChild(BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
 
+            var ordersPermission = bookStoreGroup.AddPermission(BookStorePermissions.Orders.Default, L("Permission:Orders"));
+            ordersPermission.AddChild(BookStorePermissions.Orders.Create, L("Permission:Orders.Create"));
+            ordersPermission.AddChild(BookStorePermissions.Orders.Delete, L("Permission:Orders.Delete"));
+
         }
 
         private static LocalizableString L(string name)

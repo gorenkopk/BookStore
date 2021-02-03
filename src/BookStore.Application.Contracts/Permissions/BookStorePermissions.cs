@@ -19,5 +19,12 @@
             public const string Edit = Default + ".Edit";
             public const string Delete = Default + ".Delete";
         }
+
+        public static class Orders
+        {
+            public const string Default = GroupName + ".Orders";
+            public const string Create = GroupName + ".Create";
+            public const string Delete = GroupName + ".Delete";
+        }
     }
 }
