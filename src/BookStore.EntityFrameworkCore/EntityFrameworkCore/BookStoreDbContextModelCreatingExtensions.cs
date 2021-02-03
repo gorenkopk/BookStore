@@ -1,10 +1,10 @@
 ﻿using BookStore.Authors;
 using BookStore.Books;
 using BookStore.Orders;
-using BookStore.Users;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
+using Volo.Abp.Identity;
 
 namespace BookStore.EntityFrameworkCore
 {
@@ -36,6 +36,7 @@ namespace BookStore.EntityFrameworkCore
                 b.ConfigureByConvention();
 
                 b.HasOne<Book>().WithMany().HasForeignKey(x => x.BookId);
+                b.HasOne<IdentityUser>().WithMany().HasForeignKey(x => x.UserId);
             });
 
         }
