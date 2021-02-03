@@ -20,23 +20,24 @@ namespace BookStore.Orders
 
 
         public async Task<Order> CreateAsync(
-            Book book,
+            Guid bookId,
             Guid userId,
-            OrderStage orderStage
+            OrderStage orderStage,
+            float totalPrice
             )
         {
-            var existingBookInOrder = await _orderRepository.FindByIdAsync(book.Id, userId);
+            var existingBookInOrder = await _orderRepository.FindByIdAsync(bookId, userId);
             if (existingBookInOrder != null)
             {
-                throw new BookAlreadyExistsInOrderException(book.Name);
+                throw new BookAlreadyExistsInOrderException("test");
             }
 
             return new Order 
             { 
-                BookId = book.Id,
+                BookId = bookId,
                 UserId = userId,
                 Stage = OrderStage.Created,
-                TotalPrice = book.Price
+                TotalPrice = totalPrice
             };
                 
                 
