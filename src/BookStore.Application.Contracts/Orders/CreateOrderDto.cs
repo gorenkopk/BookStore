@@ -1,9 +1,10 @@
 ﻿using System;
-using Volo.Abp.Application.Dtos;
+using System.Collections.Generic;
+using System.Text;
 
 namespace BookStore.Orders
 {
-    public class OrderDto : AuditedEntityDto<Guid>
+    public class CreateOrderDto
     {
         public Guid BookId { get; set; }
         public Guid UserId { get; set; }
