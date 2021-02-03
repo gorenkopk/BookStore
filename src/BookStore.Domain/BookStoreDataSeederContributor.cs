@@ -86,14 +86,11 @@ namespace BookStore
             // ADD NEW ROLE - CLIENT
             if (await _identityRoleRepository.GetCountAsync() <= 1)
             {
-                await _identityRoleRepository.InsertAsync
-                    (
-                        new IdentityRole(
-                                new Guid(),
-                                "Client"
-                            ),
-                        true
-                    );
+                var userRole = new IdentityRole(new Guid(), "Client");
+                userRole.IsPublic = true;
+                userRole.IsDefault = true;
+
+                await _identityRoleRepository.InsertAsync(userRole, true);
             }
 
 
