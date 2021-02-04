@@ -13,6 +13,7 @@ namespace BookStore
             CreateMap<CreateUpdateBookDto, Book>();
             CreateMap<Author, AuthorDto>();
             CreateMap<Order, OrderDto>();
+            CreateMap<CreateOrderDto, Order>();
         }
     }
 }

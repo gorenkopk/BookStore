@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BookStore.Authors;
 using BookStore.Books;
+using BookStore.Orders;
 
 namespace BookStore.Blazor
 {
@@ -10,6 +11,7 @@ namespace BookStore.Blazor
         {
             CreateMap<BookDto, CreateUpdateBookDto>();
             CreateMap<AuthorDto, UpdateAuthorDto>();
+            CreateMap<OrderDto, CreateOrderDto>();
         }
     }
 }
