@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BookStore.Authors;
 using BookStore.Books;
+using BookStore.Orders;
 
 namespace BookStore
 {
@@ -12,6 +13,7 @@ namespace BookStore
             CreateMap<CreateUpdateBookDto, Book>();
             CreateMap<Author, AuthorDto>();
             CreateMap<Author, AuthorLookupDto>();
+            CreateMap<Order, OrderDto>();
         }
     }
 }
